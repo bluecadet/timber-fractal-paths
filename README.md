@@ -10,7 +10,16 @@ typical of Fractal:
 
 ```
 {% include
-  '@patterns/components/accordion-group/accordion-group-item' with {
+  '@patterns/components/awesome-pattern' with {
+    data: {
+      title: 'Hi',
+      content: 'Am content'
+    }
+  }
+%}
+
+{% include
+  '@patterns/components/cool-patterns/real-cool-pattern' with {
     data: {
       title: 'Hi',
       content: 'Am content'
@@ -19,8 +28,22 @@ typical of Fractal:
 %}
 ```
 
-`@patterns` is the default namespace used in this plugin, but `@components` is typical for
-Fractal.
+The loader will attempt to load a `.twig` file matching the parent folders name, which is
+the last item in the include path. This
+assumes that you have the following file structure (given the above example):
+
+```
+THEME_DIR
+- fractal
+  - patterns
+    - awesome-pattern
+      - awesome-pattern.twig
+    - cool-patterns
+      - really-cool-pattern
+        - really-cool-pattern.twig
+```
+
+`@patterns` is the default namespace used in this plugin, but `@components` is typical for Fractal.
 
 ## Configuration
 
