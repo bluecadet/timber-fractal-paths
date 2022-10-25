@@ -8,14 +8,10 @@ Version: 1.0.0
 
 class TimberCustomLoader {
 
-  private $twig_version;
-  private $fractal_path;
-  private $fractal_handle;
+  private   $twig_version;
 
   public function __construct() {
     $this->version        = '2.0.0';
-    $this->fractal_path   = defined('FRACTAL_HANDLE') ? FRACTAL_HANDLE : 'fractal';
-    $this->fractal_handle = defined('FRACTAL_PATH') ? FRACTAL_PATH : get_stylesheet_directory() . '/fractal/components';
 
     if (!is_admin()) {
       add_action('plugins_loaded', [$this, 'plugin_checks']);
@@ -28,19 +24,21 @@ class TimberCustomLoader {
 
   public function add_loader($loader) {
 
-    $this->twig_version = false;
+    $twig_version   = false;
+    $fractal_handle = defined('FRACTAL_HANDLE') ? FRACTAL_HANDLE : 'fractal';
+    $fractal_path   = defined('FRACTAL_PATH') ? FRACTAL_PATH : get_stylesheet_directory() . '/fractal/components';
 
     if ( class_exists('\Twig\Environment') ) {
-      $this->twig_version =  Twig\Environment::VERSION;
+      $twig_version =  Twig\Environment::VERSION;
     } elseif ( class_exists('Twig_Environment') ) {
-      $this->twig_version = Twig_Environment::VERSION;
+      $twig_version = Twig_Environment::VERSION;
     }
 
     // Add namespace to Timber Loader
-    $loader->addPath($this->fractal_path, $this->fractal_handle);
+    $loader->addPath($fractal_path, $fractal_handle);
     $load2 = $loader;
 
-    if ( version_compare($this->twig_version, '2.7.0', '>=') ) {
+    if ( $twig_version && version_compare($twig_version, '2.7.0', '>=') ) {
       require_once('lib/v2/Loader_v2.php');
       require_once('lib/v2/CustomChainLoader_v2.php');
     } else {
