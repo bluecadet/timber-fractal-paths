@@ -38,7 +38,11 @@ class TimberCustomLoader {
     $loader->addPath($fractal_path, $fractal_handle);
     $load2 = $loader;
 
-    if ( $twig_version && version_compare($twig_version, '2.7.0', '>=') ) {
+
+    if ( $twig_version && version_compare($twig_version, '3', '>=') ) {
+      require_once('lib/v3/Loader_v3.php');
+      require_once('lib/v3/CustomChainLoader_v3.php');
+    } elseif ( $twig_version && version_compare($twig_version, '2.7.0', '>=') ) {
       require_once('lib/v2/Loader_v2.php');
       require_once('lib/v2/CustomChainLoader_v2.php');
     } else {
