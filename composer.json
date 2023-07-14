@@ -8,7 +8,6 @@
         "email": "shaun@bluecadet.com"
     }],
     "require": {
-        "timber/timber": "^1.0",
         "composer/installers": "^1.0"
     }
 }
